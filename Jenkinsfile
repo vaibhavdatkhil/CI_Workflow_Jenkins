@@ -2,28 +2,35 @@ pipeline {
     agent any
 
     stages {
+
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t ci-python-app .'
+                script {
+                    docker.build("event-app")
+                }
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'docker run --rm ci-python-app pytest test_app.py'
-            }
-        }
-
-        stage('Stop Old Container') {
-            steps {
-                sh 'docker rm -f myapp || true'
+                sh 'pip install -r requirements.txt'
+                sh 'pytest'
             }
         }
 
         stage('Run Container') {
             steps {
-                sh 'docker run -d -p 5000:5000 --name myapp ci-python-app'
+                sh 'docker run -d -p 5000:5000 event-app'
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build Successful ✅'
+        }
+        failure {
+            echo 'Build Failed ❌'
         }
     }
 }
