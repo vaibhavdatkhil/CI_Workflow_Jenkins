@@ -5,7 +5,7 @@ pipeline {
 
         stage('Clone') {
             steps {
-                git 'https://github.com/your-username/ci-python.git'
+                git 'https://github.com/vaibhavdatkhil/CI_Workflow_Jenkins.git'
             }
         }
 
