@@ -4,8 +4,9 @@
     <title>Event Registration</title>
 </head>
 <body>
+
     <h1>Hello CI Updated!</h1>
-    <h2>Register for Event hackathon event</h2>
+    <h2>Register for Hackathon Event</h2>
 
     <form method="POST">
         Name: <input type="text" name="name" required><br><br>
@@ -13,13 +14,17 @@
         <button type="submit">Register</button>
     </form>
 
-    <h3>Registered Users:</h3>
-    <ul>
-        {% for user in data %}
-            <li>{{ user.name }} - {{ user.email }}</li>
-        {% endfor %}
-    </ul>
-    <button>submit</button>
-    <h1>Hackathon Event successfully registered!</h1>
+    {% if data %}
+        <h3>Registered Users:</h3>
+        <ul>
+            {% for user in data %}
+                <li>{{ user.name }} - {{ user.email }}</li>
+            {% endfor %}
+        </ul>
+        {% if success %}
+    <h3 style="color:green;">Registration Successful ✅</h3>
+{% endif %}
+    {% endif %}
+
 </body>
 </html>
