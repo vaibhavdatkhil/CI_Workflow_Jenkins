@@ -16,10 +16,11 @@ pipeline {
         }
 
         stage('Run Container') {
-            steps {
-                sh 'docker run -d -p 5000:5000 flask-app'
-            }
-        }
+    steps {
+        sh 'docker rm -f flask-container || true'
+        sh 'docker run -d -p 5000:5000 --name flask-container flask-app'
+    }
+}
     }
 
     post {
